@@ -192,8 +192,35 @@ header {
 }
 
 .performance-card {
-    height: 150px;
-    width: 75%;
+    @include mobile-portrait {
+        height: 75px;
+        width: 100%;
+    }
+
+    @include mobile-landscape {
+        height: 75px;
+        width: 100%;
+    }
+
+    @include tablet-portrait {
+        height: 200px;
+        width: 100%;
+    }
+
+    @include tablet-landscape {
+        height: 200px;
+        width: 100%;
+    }
+
+    @include laptop {
+        height: 200px;
+        width: 100%;
+    }
+
+    @include desktop {
+        height: 200px;
+        width: 100%;
+    }
 }
 
 .fade-in {
