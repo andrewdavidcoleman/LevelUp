@@ -1,0 +1,403 @@
+@import "~bootstrap/scss/bootstrap";
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
+@import "~@fortawesome/fontawesome-free/scss/regular.scss";
+@import url('https://fonts.googleapis.com/css2?family=Manrope&family=Righteous&display=swap');
+
+/*Color mixins*/
+$lightThemeColor1: #F0F7F4;
+$lightThemeColor2: #6EABB0;
+$lightThemeColor3: #32292F;
+
+/*Font mixins*/
+$font1: 'Manrope', sans-serif;
+$font2: 'Righteous', cursive;
+
+/*Media Query Mix-ins https://davidwalsh.name/write-media-queries-sass*/
+$mobile-portrait-width: 320px;
+$mobile-landscape-width: 568px;
+$tablet-portrait-width: 768px;
+$tablet-landscape-width: 1024px;
+$laptop-width: 1366px;
+$desktop-width: 1680px;
+
+@mixin mobile-portrait {
+    @media (min-width: $mobile-portrait-width) and (max-width: $mobile-landscape-width - 1px) {
+        @content;
+    }
+}
+
+@mixin mobile-landscape {
+    @media (min-width: $mobile-landscape-width) and (max-width: $tablet-portrait-width - 1px) {
+        @content;
+    }
+}
+
+@mixin tablet-portrait {
+    @media (min-width: $tablet-portrait-width) and (max-width: $tablet-landscape-width - 1px) {
+        @content;
+    }
+}
+
+@mixin tablet-landscape {
+    @media (min-width: $tablet-landscape-width) and (max-width: $laptop-width - 1px) {
+        @content;
+    }
+}
+
+@mixin laptop {
+    @media (min-width: $laptop-width) and (max-width: $desktop-width - 1px) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: $desktop-width) {
+        @content;
+    }
+}
+/*===================================*/
+
+
+/*Utility classes====================*/
+.shad {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+
+    &.shad-hover {
+
+        &:hover {
+            box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+        }
+    }
+
+    &.shad-focus {
+        &:focus {
+            box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+        }
+    }
+}
+
+.spacer {
+    visibility: hidden;
+}
+
+.top-border {
+    border-top: 2px solid $lightThemeColor2
+}
+
+.left-border {
+    border-left: 2px solid $lightThemeColor2
+}
+
+.bottom-border {
+    border-bottom: 2px solid $lightThemeColor2;
+}
+
+.right-border {
+    border-right: 2px solid $lightThemeColor2
+}
+
+.full-border {
+    border: 2px solid $lightThemeColor2
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+/*===================================*/
+
+html, body {
+    background-color: $lightThemeColor1;
+    color: $lightThemeColor3;
+    height: 100%;
+    overflow: hidden;
+    font-family: $font1;
+    font-size: 16px;
+}
+
+input {
+    border: 2px solid $lightThemeColor2;
+    border-radius: 50px;
+    text-align: center;
+    &:focus {
+        outline: none;
+    }
+}
+
+i {
+    color: $lightThemeColor2;
+}
+
+i {
+    font-size: 2rem;
+    transition: all .15s ease;
+
+    @include mobile-landscape {
+        font-size: 1rem;
+    }
+
+    @include mobile-portrait {
+        font-size: 1rem;
+    }
+
+    &.grow {
+        &:hover {
+            @include laptop {
+                font-size: 2.5rem;
+            }
+
+            @include desktop {
+                font-size: 2.5rem;
+            }
+        }
+    }
+}
+
+header {
+
+    h1 {
+        font-family: $font2;
+
+        @include mobile-landscape {
+            font-size: 1.5rem;
+        }
+
+        @include mobile-portrait {
+            font-size: 1.5rem;
+        }
+
+        @include tablet-portrait {
+            font-size: 2rem;
+        }
+    }
+
+    h6 {
+        @include mobile-portrait {
+            font-size: .8rem;
+        }
+
+        @include mobile-landscape {
+            font-size: .8rem;
+        }
+
+        @include tablet-portrait {
+            font-size: .8rem;
+        }
+    }
+}
+
+.index-name {
+    width: 10rem;
+}
+
+.performance-card {
+    height: 150px;
+    width: 75%;
+}
+
+.fade-in {
+    -webkit-animation: fadein .3s; /* Safari, Chrome and Opera > 12.1 */
+    -moz-animation: fadein .3s; /* Firefox < 16 */
+    -ms-animation: fadein .3s; /* Internet Explorer */
+    -o-animation: fadein .3s; /* Opera < 12.1 */
+    animation: fadein .3s;
+}
+
+.fade-out {
+    -webkit-animation: fadeout .3s; /* Safari, Chrome and Opera > 12.1 */
+    -moz-animation: fadeout .3s; /* Firefox < 16 */
+    -ms-animation: fadeout .3s; /* Internet Explorer */
+    -o-animation: fadeout .3s; /* Opera < 12.1 */
+    animation: fadeout .3s;
+    animation-fill-mode: forwards;
+}
+
+@mixin fade-down-in($delay) {
+    opacity: 0;
+    position: relative;
+    -webkit-animation: fadedown .75s, fadein .75s; /* Safari, Chrome and Opera > 12.1 */
+    -moz-animation: fadedown .75s, fadein .75s; /* Firefox < 16 */
+    -ms-animation: fadedown .75s, fadein .75s; /* Internet Explorer */
+    -o-animation: fadedown .75s, fadein .75s; /* Opera < 12.1 */
+    animation: fadedown .75s, fadein .75s;
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    -ms-animation-fill-mode: forwards;
+    -o-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-delay: $delay;
+    -moz-animation-delay: $delay;
+    -ms-animation-delay: $delay;
+    -o-animation-delay: $delay;
+    animation-delay: $delay;
+}
+
+.fade-down-in {
+    @include fade-down-in(unset);
+}
+
+.fade-down-in-2 {
+    @include fade-down-in(.2s);
+}
+
+.fade-down-in-3 {
+    @include fade-down-in(.4s);
+}
+
+.fade-down-in-4 {
+    @include fade-down-in(.6s);
+}
+
+/*Keyframe animations https://www.w3schools.com/cssref/css3_pr_animation-keyframes.asp*/
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes fadein { /* Firefox < 16 */
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadein { /* Safari, Chrome and Opera > 12.1 */
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@-ms-keyframes fadein { /* Internet Explorer */
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@-o-keyframes fadein { /* Opera < 12.1 */
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeout {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@-moz-keyframes fadeout { /* Firefox < 16 */
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes fadeout { /* Safari, Chrome and Opera > 12.1 */
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@-ms-keyframes fadeout { /* Internet Explorer */
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@-o-keyframes fadeout { /* Opera < 12.1 */
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes fadedown {
+    from {
+        top: -100px;
+    }
+
+    to {
+        top: 0px;
+    }
+}
+
+@-moz-keyframes fadedown { /* Firefox < 16 */
+    from {
+        top: -100px;
+    }
+
+    to {
+        top: 0px;
+    }
+}
+
+@-webkit-keyframes fadedown { /* Safari, Chrome and Opera > 12.1 */
+    from {
+        top: -100px;
+    }
+
+    to {
+        top: 0px;
+    }
+}
+
+@-ms-keyframes fadedown { /* Internet Explorer */
+    from {
+        top: -100px;
+    }
+
+    to {
+        top: 0px;
+    }
+}
+
+@-o-keyframes fadedown { /* Opera < 12.1 */
+    from {
+        top: -100px;
+    }
+
+    to {
+        top: 0px;
+    }
+}
+/*===================================*/
+
