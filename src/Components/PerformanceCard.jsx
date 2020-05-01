@@ -1,91 +1,83 @@
 import React, { useState } from 'react';
 import { ResponsiveLine } from '@nivo/line'
 
-const data = [
-    {
-        "id": "Erin",
-        "color": "hsl(90, 70%, 50%)",
-        "data": [
-            {
-                "x": "date 1",
-                "y": 189
-            },
-            {
-                "x": "date 2",
-                "y": 264
-            },
-            {
-                "x": "date 3",
-                "y": 256
-            }
-        ]
-    },
-    {
-        "id": "Leanne",
-        "color": "hsl(174, 70%, 50%)",
-        "data": [
-            {
-                "x": "date 1",
-                "y": 222
-            },
-            {
-                "x": "date 2",
-                "y": 207
-            },
-        ]
-    },
-    {
-        "id": "Andrew",
-        "color": "hsl(197, 70%, 50%)",
-        "data": [
-            {
-                "x": "plane",
-                "y": 27
-            },
-            {
-                "x": "helicopter",
-                "y": 289
-            },
-            {
-                "x": "boat",
-                "y": 183
-            }
-        ]
-    },
-]
-
 export default function PerformanceCard(props) {
 
     const [athlete, setAthlete] = useState(props.athlete)
-    const [metcon, setMetcon] = useState(props.metcon)
+    const [wod, setwod] = useState(props.wod)
+
+    //get performances of "wod", by "athlete"
 
     //mock db data
     const performances = [
         {
-            "x": "plane",
-            "y": 27
+            performanceId: 111,
+            wodId: wod.wodId,
+            wodType: wod.type,
+            athleteId: athlete.athleteId,
+            result: '22:13',
+            date: '12/12/2019'
         },
         {
-            "x": "helicopter",
-            "y": 289
+            performanceId: 111,
+            wodId: wod.wodId,
+            wodType: wod.type,
+            athleteId: athlete.athleteId,
+            result: '20:44',
+            date: '01/22/2020'
         },
         {
-            "x": "boat",
-            "y": 183
-        }
-    ];
+            performanceId: 111,
+            wodId: wod.wodId,
+            wodType: wod.type,
+            athleteId: athlete.athleteId,
+            result: '19:13',
+            date: '02/02/2020'
+        },
+        {
+            performanceId: 111,
+            wodId: wod.wodId,
+            wodType: wod.type,
+            athleteId: athlete.athleteId,
+            result: '18:56',
+            date: '04/19/2020'
+        },
+    ]
 
+    const performanceData = [];
+
+    for (var i = 0; i < performances.length; i++) {
+        performanceData.push({
+            "x": performances[i].date,
+            "y": performances[i].result.split(':')[0]
+        })
+    }
     const data = [
         {
-            "id": athlete.athleteId,
+            "id": athlete.athleteId + '-' + wod.wodId,
             "color": 'hsl(197, 70%, 50%)',
-            "data": performances
+            "data": performanceData
         }
     ]
 
+    let legend;
+
+    switch (wod.type) {
+        case 'ft':
+            legend = 'time'
+            break;
+        case 'amrap':
+            legend = 'rounds/reps'
+            break;
+        case 'lift':
+            legend = 'lbs'
+            break;
+        default:
+    }
+
     function handleClick() {
         console.log(athlete);
-        console.log(metcon);
+        console.log(wod);
     }
 
     return (
@@ -108,7 +100,7 @@ export default function PerformanceCard(props) {
                     tickSize: 5,
                     tickPadding: 5,
                     tickRotation: 0,
-                    legend: 'count',
+                    legend,
                     legendOffset: -40,
                     legendPosition: 'middle'
                 }}

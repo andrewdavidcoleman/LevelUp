@@ -10,9 +10,9 @@ export default function Layout(props) {
     }
 
     return (
-        <div className="main container-fluid d-flex flex-column m-auto">
+        <div className="main fade-down-in container-fluid d-flex flex-column m-auto">
             <header className="row align-items-center justify-content-center">
-                <h1 className="fade-down-in-4 pt-4">Level Up<i className="fas fa-level-up-alt"></i></h1>
+                <h1 className="pt-4">Level Up<i className="fas fa-level-up-alt"></i></h1>
             </header>
             <div className="row align-items-center">
                 <div className="col-2 col-lg-4 col-xl-4 text-center">

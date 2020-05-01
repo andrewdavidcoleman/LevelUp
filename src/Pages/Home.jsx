@@ -17,40 +17,55 @@ const athletes = [
     },
 ]
 
-const lifts = [
+const wods = [
     {
-        liftId: 111,
-        name: 'Clean & Jerk'
-    },
-    {
-        liftId: 222,
-        name: 'Snatch'
-    },
-    {
-        liftId: 333,
-        name: 'Front Squat'
-    },
-]
-
-const metcons = [
-    {
-        metconId: 111,
+        wodId: 111,
         name: 'Annie ',
+        type: 'ft',
         description: `50-40-30-20-10 Reps For Time
                         Double-Unders
                         Sit-Ups`
     }, {
-        metconId: 222,
+        wodId: 222,
         name: 'Nancy',
+        type: 'ft',
         description: `5 Rounds For Time
                         400 meter Run
                         15 Overhead Squats (95/65 lb)`
     }, {
-        metconId: 333,
+        wodId: 333,
         name: 'Fran',
+        type:'ft',
         description: `21-15-9 Reps For Time
                         Thrusters (95/65 lb)
                         Pull-Ups`
+    },
+    {
+        wodId: 444,
+        name: 'Clean & Jerk',
+        type: 'lift',
+        description:''
+    },
+    {
+        wodId: 555,
+        name: 'Snatch',
+        type: 'lift',
+        description: ''
+    },
+    {
+        wodId: 666,
+        name: 'Front Squat',
+        type: 'lift',
+        description: ''
+    },
+    {
+        wodId: 777,
+        name: 'Mary',
+        type: 'amrap',
+        description: `AMRAP 20'
+                        5 Handstand Push-Ups
+                        10 Pistols (alternating legs)
+                        15 Pull-Ups`
     },
 ]
 
@@ -73,21 +88,21 @@ export default function Home() {
                 </div>
 
 
-                {metcons.map(metcon =>
+                {wods.map(wod =>
 
-                    <div key={metcon.metconId} className="row">
+                    <div key={wod.wodId} className="row">
                         <div className="pl-3 pr-3 index-name right-border d-flex flex-column justify-content-center">
                             <div className="row justify-content-end">
-                                <h4 className="mr-3">{metcon.name}</h4>
+                                <h4 className="mr-3">{wod.name}</h4>
                             </div>
                         </div>
                         {athletes.map(athlete =>
 
-                            <div key={`${athlete.athleteId}-${metcon.metconId}`} className="col">
+                            <div key={`${athlete.athleteId}-${wod.wodId}`} className="col">
                                 <div className="row justify-content-center">
                                     <PerformanceCard
                                         athlete={athlete}
-                                        metcon={metcon}
+                                        wod={wod}
                                     />
                                 </div>
                             </div>
