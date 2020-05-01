@@ -1,73 +1,55 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react'
 import { ResponsiveLine } from '@nivo/line'
+import axios from 'axios'
+import moment from 'moment'
 
 export default function PerformanceCard(props) {
 
-    const [athlete, setAthlete] = useState(props.athlete)
-    const [wod, setwod] = useState(props.wod)
+    const [performances, setPerformances] = useState([])
 
     //get performances of "wod", by "athlete"
+    useEffect(() => {
+        axios.get('http://localhost:8000/getPerformancesByAthleteWod', {
+            params: {
+                athleteId: props.athlete.athleteId,
+                wodId: props.wod.wodId
+            }
+        })
+        .then(function (response) {
+            setPerformances(response.data)
+        })
+        .catch(function (error) {
+            console.log(error)
+        })
+        .finally(function () {
 
-    //mock db data
-    const performances = [
-        {
-            performanceId: 111,
-            wodId: wod.wodId,
-            wodType: wod.type,
-            athleteId: athlete.athleteId,
-            result: '22:13',
-            date: '12/12/2019'
-        },
-        {
-            performanceId: 111,
-            wodId: wod.wodId,
-            wodType: wod.type,
-            athleteId: athlete.athleteId,
-            result: '20:44',
-            date: '01/22/2020'
-        },
-        {
-            performanceId: 111,
-            wodId: wod.wodId,
-            wodType: wod.type,
-            athleteId: athlete.athleteId,
-            result: '19:13',
-            date: '02/02/2020'
-        },
-        {
-            performanceId: 111,
-            wodId: wod.wodId,
-            wodType: wod.type,
-            athleteId: athlete.athleteId,
-            result: '18:56',
-            date: '04/19/2020'
-        },
-    ]
+        })
+    }, []);
 
     const performanceData = [];
 
-    for (var i = 0; i < performances.length; i++) {
+    for (var i = 0; i < performances.filter(p => p.wodId == props.wod.wodId && p.athleteId == props.athlete.athleteId).length; i++) {
         performanceData.push({
-            "x": performances[i].date,
-            "y": performances[i].result.split(':')[0]
+            x: performances[i].date,
+            y: parseInt(performances[i].result.split(':')[0])
         })
     }
+
     const data = [
         {
-            "id": athlete.athleteId + '-' + wod.wodId,
-            "color": 'hsl(197, 70%, 50%)',
-            "data": performanceData
+            id: props.athlete.athleteId + '-' + props.wod.wodId,
+            color: 'hsl(197, 70%, 50%)',
+            data: performanceData.length ? performanceData : []
         }
     ]
 
     let legend;
-
-    switch (wod.type) {
+    switch (props.wod.type) {
         case 'ft':
             legend = 'time'
             break;
         case 'amrap':
-            legend = 'rounds/reps'
+            legend = 'rounds + reps'
             break;
         case 'lift':
             legend = 'lbs'
@@ -75,13 +57,8 @@ export default function PerformanceCard(props) {
         default:
     }
 
-    function handleClick() {
-        console.log(athlete);
-        console.log(wod);
-    }
-
     return (
-        <div className="performance-card card full-border shad shad-hover cursor-pointer m-2" onClick={handleClick}>
+        <div className="performance-card card full-border shad shad-hover cursor-pointer m-2">
             <ResponsiveLine
                 data={data}
                 margin={{ top: 10, right: 30, bottom: 30, left: 50 }}

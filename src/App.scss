@@ -194,32 +194,32 @@ header {
 .performance-card {
     @include mobile-portrait {
         height: 75px;
-        width: 100%;
+        width: 95%;
     }
 
     @include mobile-landscape {
         height: 75px;
-        width: 100%;
+        width: 95%;
     }
 
     @include tablet-portrait {
         height: 200px;
-        width: 100%;
+        width: 95%;
     }
 
     @include tablet-landscape {
         height: 200px;
-        width: 100%;
+        width: 95%;
     }
 
     @include laptop {
         height: 200px;
-        width: 100%;
+        width: 95%;
     }
 
     @include desktop {
         height: 200px;
-        width: 100%;
+        width: 95%;
     }
 }
 

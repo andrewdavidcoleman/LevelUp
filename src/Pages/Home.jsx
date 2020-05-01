@@ -1,6 +1,7 @@
 import React from 'react';
 import Layout from '../Shared/Layout';
 import PerformanceCard from '../Components/PerformanceCard';
+const moment = require('moment');
 
 const athletes = [
     {
@@ -25,14 +26,16 @@ const wods = [
         description: `50-40-30-20-10 Reps For Time
                         Double-Unders
                         Sit-Ups`
-    }, {
+    },
+    {
         wodId: 222,
         name: 'Nancy',
         type: 'ft',
         description: `5 Rounds For Time
                         400 meter Run
                         15 Overhead Squats (95/65 lb)`
-    }, {
+    },
+    {
         wodId: 333,
         name: 'Fran',
         type:'ft',
