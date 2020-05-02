@@ -1,78 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react'
 import Layout from '../Shared/Layout';
 import PerformanceCard from '../Components/PerformanceCard';
-const moment = require('moment');
-
-const athletes = [
-    {
-        athleteId: 1,
-        name: 'Erin'
-    },
-    {
-        athleteId: 2,
-        name: 'Leanne'
-    },
-    {
-        athleteId: 3,
-        name: 'Andrew'
-    },
-]
-
-const wods = [
-    {
-        wodId: 111,
-        name: 'Annie ',
-        type: 'ft',
-        description: `50-40-30-20-10 Reps For Time
-                        Double-Unders
-                        Sit-Ups`
-    },
-    {
-        wodId: 222,
-        name: 'Nancy',
-        type: 'ft',
-        description: `5 Rounds For Time
-                        400 meter Run
-                        15 Overhead Squats (95/65 lb)`
-    },
-    {
-        wodId: 333,
-        name: 'Fran',
-        type:'ft',
-        description: `21-15-9 Reps For Time
-                        Thrusters (95/65 lb)
-                        Pull-Ups`
-    },
-    {
-        wodId: 444,
-        name: 'Clean & Jerk',
-        type: 'lift',
-        description:''
-    },
-    {
-        wodId: 555,
-        name: 'Snatch',
-        type: 'lift',
-        description: ''
-    },
-    {
-        wodId: 666,
-        name: 'Front Squat',
-        type: 'lift',
-        description: ''
-    },
-    {
-        wodId: 777,
-        name: 'Mary',
-        type: 'amrap',
-        description: `AMRAP 20'
-                        5 Handstand Push-Ups
-                        10 Pistols (alternating legs)
-                        15 Pull-Ups`
-    },
-]
+import axios from 'axios'
 
 export default function Home() {
+
+    const [athletes, setAthletes] = useState([])
+    const [wods, setWods] = useState([])
+
+    //get all athletes
+    useEffect(() => {
+        axios.get('http://localhost:8000/getAllAthletes')
+            .then(function (response) {
+                setAthletes(response.data)
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+            .finally(function () {
+
+            })
+    }, []);
+
+    //get all wods
+    useEffect(() => {
+        axios.get('http://localhost:8000/getAllWods')
+            .then(function (response) {
+                setWods(response.data)
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+            .finally(function () {
+
+            })
+    }, []);
+
     return (
         <Layout>
             <div id="home" className="col">

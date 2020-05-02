@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { ResponsiveLine } from '@nivo/line'
 import axios from 'axios'
-import moment from 'moment'
 
 export default function PerformanceCard(props) {
 
@@ -9,7 +8,7 @@ export default function PerformanceCard(props) {
 
     //get performances of "wod", by "athlete"
     useEffect(() => {
-        axios.get('http://localhost:8000/getPerformancesByAthleteWod', {
+        axios.get('http://localhost:8000/getAllPerformancesByAthleteIdWodId', {
             params: {
                 athleteId: props.athlete.athleteId,
                 wodId: props.wod.wodId
@@ -28,7 +27,7 @@ export default function PerformanceCard(props) {
 
     const performanceData = [];
 
-    for (var i = 0; i < performances.filter(p => p.wodId == props.wod.wodId && p.athleteId == props.athlete.athleteId).length; i++) {
+    for (var i = 0; i < performances.length; i++) {
         performanceData.push({
             x: performances[i].date,
             y: parseInt(performances[i].result.split(':')[0])
