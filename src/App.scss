@@ -2,7 +2,7 @@
 @import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
 @import "~@fortawesome/fontawesome-free/scss/solid.scss";
 @import "~@fortawesome/fontawesome-free/scss/regular.scss";
-@import url('https://fonts.googleapis.com/css2?family=Manrope&family=Righteous&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Righteous&family=Roboto:wght@300&display=swap');
 
 /*Color mixins*/
 $lightThemeColor1: #F0F7F4;
@@ -10,7 +10,7 @@ $lightThemeColor2: #6EABB0;
 $lightThemeColor3: #32292F;
 
 /*Font mixins*/
-$font1: 'Manrope', sans-serif;
+$font1: 'Roboto', sans-serif;
 $font2: 'Righteous', cursive;
 
 /*Media Query Mix-ins https://davidwalsh.name/write-media-queries-sass*/
@@ -63,18 +63,17 @@ $desktop-width: 1680px;
 .shad {
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
 
-    &.shad-hover {
-
-        &:hover {
-            box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-        }
+.shad-hover {
+    &:hover {
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
     }
+}
 
-    &.shad-focus {
-        &:focus {
-            box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-        }
+.shad-focus {
+    &:focus {
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
     }
 }
 
@@ -104,6 +103,10 @@ $desktop-width: 1680px;
 
 .cursor-pointer {
     cursor: pointer;
+}
+
+.justify-content-evenly {
+    justify-content: space-evenly;
 }
 /*===================================*/
 
@@ -187,39 +190,83 @@ header {
     }
 }
 
-.index-name {
-    width: 10rem;
+.action-bar {
+    height: 100px;
+
+    svg {
+        color: $lightThemeColor3;
+        height: 2.5em;
+        width: 2.5em;
+        cursor: pointer;
+        transition: all .15s ease;
+
+        @include mobile-landscape {
+            height: 2em;
+            width: 2em;
+        }
+
+        @include mobile-portrait {
+            height: 2em;
+            width: 2em;
+        }
+    }
+
+    svg:hover {
+
+        @include laptop {
+            color: $lightThemeColor2;
+        }
+
+        @include desktop {
+            color: $lightThemeColor2;
+        }
+    }
+
+    svg.active {
+        color: $lightThemeColor2;
+    }
 }
 
 .performance-card {
     @include mobile-portrait {
         height: 75px;
-        width: 95%;
+        width: 99%;
     }
 
     @include mobile-landscape {
         height: 75px;
-        width: 95%;
+        width: 99%;
     }
 
     @include tablet-portrait {
         height: 200px;
-        width: 95%;
+        width: 99%;
     }
 
     @include tablet-landscape {
         height: 200px;
-        width: 95%;
+        width: 99%;
     }
 
     @include laptop {
         height: 200px;
-        width: 95%;
+        width: 99%;
     }
 
     @include desktop {
         height: 200px;
-        width: 95%;
+        width: 99%;
+    }
+
+    /*TODO: try this out*/
+    &.zoom { 
+        position: fixed;
+        height: 95vh;
+        width: 95vw;
+        top: 2%;
+        left: 50%;
+        transform: translate(-50%, 0);
+        z-index: 2;
     }
 }
 

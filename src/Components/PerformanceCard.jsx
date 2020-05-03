@@ -1,36 +1,30 @@
 import React, { useState, useEffect } from 'react'
 import { ResponsiveLine } from '@nivo/line'
 import axios from 'axios'
+const moment = require('moment')
 
 export default function PerformanceCard(props) {
 
-    const [performances, setPerformances] = useState([])
+    // Get performances of "wod", by "athlete"
+    function handleUpdate() {
+        //axios.get('http://localhost:8000/getAllPerformancesByAthleteIdWodId')
+        //.then(function (response) {
+        //    setPerformances(response.data)
+        //})
+        //.catch(function (error) {
+        //    console.log(error)
+        //})
+        //.finally(function () {
 
-    //get performances of "wod", by "athlete"
-    useEffect(() => {
-        axios.get('http://localhost:8000/getAllPerformancesByAthleteIdWodId', {
-            params: {
-                athleteId: props.athlete.athleteId,
-                wodId: props.wod.wodId
-            }
-        })
-        .then(function (response) {
-            setPerformances(response.data)
-        })
-        .catch(function (error) {
-            console.log(error)
-        })
-        .finally(function () {
-
-        })
-    }, []);
+        //})
+    }
 
     const performanceData = [];
 
-    for (var i = 0; i < performances.length; i++) {
+    for (var i = 0; i < props.performances.length; i++) {
         performanceData.push({
-            x: performances[i].date,
-            y: parseInt(performances[i].result.split(':')[0])
+            x: moment(props.performances[i].date).format('MM/DD/YYYY'),
+            y: parseInt(props.performances[i].result.split(':')[0])
         })
     }
 
@@ -38,7 +32,7 @@ export default function PerformanceCard(props) {
         {
             id: props.athlete.athleteId + '-' + props.wod.wodId,
             color: 'hsl(197, 70%, 50%)',
-            data: performanceData.length ? performanceData : []
+            data: performanceData
         }
     ]
 
@@ -56,8 +50,12 @@ export default function PerformanceCard(props) {
         default:
     }
 
+    if (props.performances.length) {
+        console.log(data);
+    }
+
     return (
-        <div className="performance-card card full-border shad shad-hover cursor-pointer m-2">
+        <div className="performance-card card full-border shad shad-hover cursor-pointer ml-2 mt-2 mr-2">
             <ResponsiveLine
                 data={data}
                 margin={{ top: 10, right: 30, bottom: 30, left: 50 }}

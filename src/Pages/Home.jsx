@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import Layout from '../Shared/Layout';
 import PerformanceCard from '../Components/PerformanceCard';
 import axios from 'axios'
 
@@ -7,9 +6,11 @@ export default function Home() {
 
     const [athletes, setAthletes] = useState([])
     const [wods, setWods] = useState([])
+    const [performances, setPerformances] = useState([])
 
-    //get all athletes
     useEffect(() => {
+
+        //Get all athletes
         axios.get('http://localhost:8000/getAllAthletes')
             .then(function (response) {
                 setAthletes(response.data)
@@ -20,10 +21,8 @@ export default function Home() {
             .finally(function () {
 
             })
-    }, []);
 
-    //get all wods
-    useEffect(() => {
+        // Get all wods
         axios.get('http://localhost:8000/getAllWods')
             .then(function (response) {
                 setWods(response.data)
@@ -34,50 +33,70 @@ export default function Home() {
             .finally(function () {
 
             })
+
+        // Get all performances
+        axios.get('http://localhost:8000/getAllPerformances')
+            .then(function (response) {
+                setPerformances(response.data)
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+            .finally(function () {
+
+            })
+
     }, []);
 
     return (
-        <Layout>
-            <div id="home" className="col">
-                <div className="row">
-                    <div className="pr-3 index-name">
-                    </div>
-                    {athletes.map(athlete =>
-
-                        <div key={athlete.athleteId} className="col">
-                            <div className="row justify-content-center">
-                                <h4 className="bottom-border pl-2 pr-2">{athlete.name}</h4>
-                            </div>
-                        </div>
-
-                    )}
-                </div>
-
-
-                {wods.map(wod =>
-
-                    <div key={wod.wodId} className="row">
-                        <div className="pl-3 pr-3 index-name right-border d-flex flex-column justify-content-center">
-                            <div className="row justify-content-end">
-                                <h4 className="mr-3">{wod.name}</h4>
-                            </div>
-                        </div>
+        <div id="home" className="col">
+            <div className="row">
+                <div className="col-2"></div>
+                <div className="col-8">
+                    <div className="row pl-1 pr-1">
                         {athletes.map(athlete =>
 
-                            <div key={`${athlete.athleteId}-${wod.wodId}`} className="col">
-                                <div className="row justify-content-center">
-                                    <PerformanceCard
-                                        athlete={athlete}
-                                        wod={wod}
-                                    />
-                                </div>
+                            <div key={athlete.athleteId} className="col text-center">
+                                <h4 className="bottom-border m-0 pb-2">{athlete.name}</h4>
                             </div>
 
                         )}
                     </div>
+                </div>
+                <div className="col-2"></div>
+            </div>
 
-                )}
-            </div>            
-        </Layout>
+            {wods.map(wod =>
+
+                <div key={wod.wodId} className="row">
+                    <div className="col-2 right-border d-flex flex-column justify-content-center">
+                        <div className="row justify-content-end">
+                            <h4 className="mr-3">{wod.name}</h4>
+                        </div>
+                    </div>
+
+                    <div className="col-8">
+                        <div className="row pl-2 pt-2 pr-2">
+                            {athletes.map(athlete =>
+                                <div key={`${athlete.athleteId}-${wod.wodId}`} className="col">
+                                    <div className="row justify-content-center">
+                                        <PerformanceCard
+                                            athlete={athlete}
+                                            wod={wod}
+                                            performances={performances.filter(p => p.wodId === wod.wodId && p.athleteId === athlete.athleteId)}
+                                        />
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+
+                    <div className="col-2 left-border d-flex flex-column justify-content-center">
+                        OPTIONS
+                    </div>
+                </div>
+
+            )}
+        </div>            
     );
 }

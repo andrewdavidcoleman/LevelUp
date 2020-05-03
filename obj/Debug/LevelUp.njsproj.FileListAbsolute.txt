@@ -1,0 +1,2 @@
+C:\Users\Andrew\source\repos\LevelUp\obj\Debug\LevelUp.njsprojAssemblyReference.cache
+C:\Users\Andrew\source\repos\LevelUp\obj\Debug\LevelUp.njsproj.CoreCompileInputs.cache

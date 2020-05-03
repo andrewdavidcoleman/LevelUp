@@ -59,14 +59,12 @@
     <Folder Include="public\" />
     <Folder Include="src\" />
     <Folder Include="src\Components\" />
-    <Folder Include="src\Shared\" />
     <Folder Include="src\Pages\" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="src\Pages\About.jsx" />
+    <TypeScriptCompile Include="src\Pages\AddWod.jsx" />
     <TypeScriptCompile Include="src\Pages\Home.jsx" />
-    <TypeScriptCompile Include="src\Pages\Users.jsx" />
-    <TypeScriptCompile Include="src\Shared\Layout.jsx" />
+    <TypeScriptCompile Include="src\Pages\AddAthlete.jsx" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
   <ProjectExtensions>
