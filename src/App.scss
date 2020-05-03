@@ -7,8 +7,8 @@
 /*Color mixins*/
 $lightThemeColor1: #F0F7F4;
 $lightThemeColor2: #6EABB0;
-$lightThemeColor3: #32292F;
-
+$lightThemeColor3: #6F7270;
+$lightThemeBorderColor: #B9BEBC;
 /*Font mixins*/
 $font1: 'Roboto', sans-serif;
 $font2: 'Righteous', cursive;
@@ -82,23 +82,29 @@ $desktop-width: 1680px;
 }
 
 .top-border {
-    border-top: 2px solid $lightThemeColor2
+    border-top: 1px solid $lightThemeBorderColor
 }
 
 .left-border {
-    border-left: 2px solid $lightThemeColor2
+    border-left: 1px solid $lightThemeBorderColor
 }
 
 .bottom-border {
-    border-bottom: 2px solid $lightThemeColor2;
+    border-bottom: 1px solid $lightThemeBorderColor;
 }
 
 .right-border {
-    border-right: 2px solid $lightThemeColor2
+    border-right: 1px solid $lightThemeBorderColor
 }
 
 .full-border {
-    border: 2px solid $lightThemeColor2
+    border: 1px solid $lightThemeBorderColor
+}
+
+.hover-border {
+    &:hover {
+        border-color: $lightThemeColor2;
+    }
 }
 
 .cursor-pointer {
@@ -108,6 +114,7 @@ $desktop-width: 1680px;
 .justify-content-evenly {
     justify-content: space-evenly;
 }
+
 /*===================================*/
 
 html, body {
@@ -228,6 +235,9 @@ header {
 }
 
 .performance-card {
+
+    background-color: transparent;
+
     @include mobile-portrait {
         height: 75px;
         width: 99%;

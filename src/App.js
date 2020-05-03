@@ -1,13 +1,41 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import './App.scss';
 import Home from './Pages/Home'
 import AddWod from './Pages/AddWod'
 import AddAthlete from './Pages/AddAthlete'
+import TextField from '@material-ui/core/TextField';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 
 export default function App() {
 
     const [search, setSearch] = useState('')
     const [page, setPage] = useState('Home')
+
+    // Style overrides for material UI text field
+    const SearchInput = withStyles({
+        root: {
+            width: '100%',
+            '& label.Mui-focused': {
+                color: '#6EABB0',
+            },
+            '& .MuiOutlinedInput-root': {
+                '&.Mui-focused fieldset': {
+                    borderColor: '#6EABB0',
+                    borderWidth: '1px'
+                },
+            },
+        },
+    })(TextField);
+
+    const classes = makeStyles((theme) => ({
+        root: {
+            display: 'flex',
+            flexWrap: 'wrap',
+        },
+        margin: {
+            margin: theme.spacing(1),
+        },
+    }));
 
     function handleClick(page) {
         setPage(page)
@@ -42,7 +70,7 @@ export default function App() {
                           <path fillRule="evenodd" d="M11 14s1 0 1-1-1-4-6-4-6 3-6 4 1 1 1 1h10zm-9.995-.944v-.002.002zM1.022 13h9.956a.274.274 0 00.014-.002l.008-.002c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664a1.05 1.05 0 00.022.004zm9.974.056v-.002.002zM6 7a2 2 0 100-4 2 2 0 000 4zm3-2a3 3 0 11-6 0 3 3 0 016 0zm4.5 0a.5.5 0 01.5.5v2a.5.5 0 01-.5.5h-2a.5.5 0 010-1H13V5.5a.5.5 0 01.5-.5z" clipRule="evenodd" />
                           <path fillRule="evenodd" d="M13 7.5a.5.5 0 01.5-.5h2a.5.5 0 010 1H14v1.5a.5.5 0 01-1 0v-2z" clipRule="evenodd" />
                       </svg>
-                      <svg onClick={() => handleClick('AddWod')} className={'bi bi-file-plus'  + (page === 'AddWod' && 'active')} viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                      <svg onClick={() => handleClick('AddWod')} className={'bi bi-file-plus ' + (page === 'AddWod' && 'active')} viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                           <path d="M9 1H4a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V8h-1v5a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1h5V1z" />
                           <path fillRule="evenodd" d="M13.5 1a.5.5 0 01.5.5v2a.5.5 0 01-.5.5h-2a.5.5 0 010-1H13V1.5a.5.5 0 01.5-.5z" clipRule="evenodd" />
                           <path fillRule="evenodd" d="M13 3.5a.5.5 0 01.5-.5h2a.5.5 0 010 1H14v1.5a.5.5 0 01-1 0v-2z" clipRule="evenodd" />
@@ -54,7 +82,13 @@ export default function App() {
               </div>
               <div className="col-4">
                   <div className="row justify-content-center">
-                      <input className="shad shad-focus p-2 mb-4 mt-4 w-100" type="text" value={search} onChange={handleChange} placeholder="Search..." />
+                      <SearchInput
+                          className={classes.margin}
+                          label="Search"
+                          variant="outlined"
+                          id="custom-css-outlined-input"
+                          //autoFocus={page === 'Home' && 'true'}
+                      />
                   </div>
               </div>
               <div className="col-4 text-center">

@@ -5,20 +5,6 @@ const moment = require('moment')
 
 export default function PerformanceCard(props) {
 
-    // Get performances of "wod", by "athlete"
-    function handleUpdate() {
-        //axios.get('http://localhost:8000/getAllPerformancesByAthleteIdWodId')
-        //.then(function (response) {
-        //    setPerformances(response.data)
-        //})
-        //.catch(function (error) {
-        //    console.log(error)
-        //})
-        //.finally(function () {
-
-        //})
-    }
-
     const performanceData = [];
 
     for (var i = 0; i < props.performances.length; i++) {
@@ -55,7 +41,7 @@ export default function PerformanceCard(props) {
     }
 
     return (
-        <div className="performance-card card full-border shad shad-hover cursor-pointer ml-2 mt-2 mr-2">
+        <div className="performance-card card full-border hover-border ml-2 mt-2 mr-2">
             <ResponsiveLine
                 data={data}
                 margin={{ top: 10, right: 30, bottom: 30, left: 50 }}
