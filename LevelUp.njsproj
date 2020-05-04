@@ -52,6 +52,9 @@
     <Content Include="src\index.css" />
     <Content Include="src\index.js" />
     <Content Include="src\logo.svg" />
+    <Content Include="src\Pages\PerformanceDetails.jsx">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="src\serviceWorker.js" />
     <Content Include="src\setupTests.js" />
   </ItemGroup>

@@ -4,10 +4,9 @@ import { ResponsiveLine } from '@nivo/line'
 import axios from 'axios'
 const moment = require('moment')
 
-export default function PerformanceCard(props) {
 
-    const { state, dispatch } = useContext(AppContext);
-
+export default function PerformanceDetails(props) {
+    console.log(props);
     const performanceData = [];
 
     for (var i = 0; i < props.performances.length; i++) {
@@ -40,7 +39,7 @@ export default function PerformanceCard(props) {
     }
 
     return (
-        <div className="performance-card card full-border hover-border ml-2 mt-2 mr-2" onClick={() => dispatch({ page: 'PerformanceDetails', athlete: props.athlete, wod: props.wod, performances: props.performances})}>
+        <div id="performanceDetails">
             <ResponsiveLine
                 data={data}
                 margin={{ top: 10, right: 30, bottom: 30, left: 50 }}
