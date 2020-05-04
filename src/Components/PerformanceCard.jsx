@@ -36,10 +36,6 @@ export default function PerformanceCard(props) {
         default:
     }
 
-    if (props.performances.length) {
-        console.log(data);
-    }
-
     return (
         <div className="performance-card card full-border hover-border ml-2 mt-2 mr-2">
             <ResponsiveLine
