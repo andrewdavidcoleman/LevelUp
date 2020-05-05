@@ -1,13 +1,13 @@
-import React, { useState, useReducer } from 'react'
-import './App.scss';
-import Home from './Pages/Home'
+import React, { useReducer, useState, useContext } from 'react'
+import './App.scss'
+import { Home } from './Pages/Home'
 import AddWod from './Pages/AddWod'
 import AddAthlete from './Pages/AddAthlete'
 import PerformanceDetails from './Pages/PerformanceDetails'
-import TextField from '@material-ui/core/TextField';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField'
+import { makeStyles, withStyles } from '@material-ui/core/styles'
 
-// Reducer to manage which "page" the user is on
+// Reducer to manage global app state
 function reducer(state, action) {
     return {
         page: action.page,
@@ -50,8 +50,13 @@ const AppContext = React.createContext(null);
 
 const App = () => {
 
-    //const [search, setSearch] = useState('')
-    const [state, dispatch] = useReducer(reducer, { page: 'Home', athlete: {}, wod: {}, performances: []})
+    const [search, setSearch] = useState('')
+    const [state, dispatch] = useReducer(reducer, { page: 'Home', athlete: {}, wod: {}, performances: [] })
+
+    function handleSearchChange(event) {
+        console.log(state.performances);
+        console.log(state.performances.filter(p => p.name.includes(event.target.value)));
+    }
 
     return (
     <AppContext.Provider value={{ state, dispatch }}>
@@ -86,12 +91,13 @@ const App = () => {
                                         : state.page === 'PerformanceDetails' ?
                                             <h4>Performance Details</h4>
                                         : <SearchInput
-                                            className={classes.margin}
-                                            label="Search"
-                                            variant="outlined"
-                                            id="searchInput"
-                                            size="small"
-                                            autoFocus={true}
+                                                className={classes.margin}
+                                                label="Search"
+                                                variant="outlined"
+                                                id="searchInput"
+                                                size="small"
+                                                autoFocus={true}
+                                                onChange={(event) => setSearch(event.target.value)}
                                         />
                         }
                     </div>
@@ -101,10 +107,10 @@ const App = () => {
             </div>
             </div>
 
-            {
-                state.page === 'AddWod' ?
-                    <AddWod />
-                    : state.page === 'AddAthlete' ?
+                {
+                    state.page === 'AddWod' ?
+                        <AddWod />
+                        : state.page === 'AddAthlete' ?
                             <AddAthlete />
                             : state.page === 'PerformanceDetails' ?
                                 <PerformanceDetails
@@ -112,7 +118,7 @@ const App = () => {
                                     wod={state.wod}
                                     performances={state.performances}
                                 />
-                                : <Home />
+                                : <Home search={search} />
             }
 
         </div>
