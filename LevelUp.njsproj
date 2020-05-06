@@ -46,6 +46,12 @@
     <Content Include="src\App.scss" />
     <Content Include="src\App.js" />
     <Content Include="src\App.test.js" />
+    <Content Include="src\Components\AddPerformance.jsx">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="src\Components\LevelUpInputs.jsx">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="src\Components\PerformanceCard.jsx">
       <SubType>Code</SubType>
     </Content>

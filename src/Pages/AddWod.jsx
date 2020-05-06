@@ -7,74 +7,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import axios from 'axios'
-
-const AddWodTextField = withStyles({
-    root: {
-        width: '75%',
-        '& label.Mui-focused': {
-            color: '#6EABB0',
-        },
-        '& .MuiOutlinedInput-root': {
-            '&.Mui-focused fieldset': {
-                borderColor: '#6EABB0',
-                borderWidth: '1px'
-            },
-            '&:hover fieldset': {
-                borderColor: '#6EABB0',
-            },
-        }
-    },
-})(TextField);
-
-const AddWodFormControl = withStyles({
-    root: {
-        width: '75%',
-        '& label.Mui-focused': {
-            color: '#6EABB0',
-        },
-        '& .MuiOutlinedInput-root': {
-            '&.Mui-focused fieldset': {
-                borderColor: '#6EABB0',
-                borderWidth: '1px',
-            },
-            '&:hover fieldset': {
-                borderColor: '#6EABB0',
-            },
-        },
-    },
-})(FormControl);
-
-const AddWodTextArea = withStyles({
-    root: {
-        width: '100%',
-        height: '300',
-        '& label.Mui-focused': {
-            color: '#6EABB0',
-        },
-        '& .MuiOutlinedInput-root': {
-            '&.Mui-focused fieldset': {
-                borderColor: '#6EABB0',
-                borderWidth: '1px'
-            },
-            '&:hover fieldset': {
-                borderColor: '#6EABB0',
-            },
-        },
-        '& .MuiOutlinedInput-input': {
-            minHeight: '300px'
-        },
-    },
-})(TextField);
-
-const classes = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-        flexWrap: 'wrap',
-    },
-    margin: {
-        margin: theme.spacing(1),
-    },
-}))
+import { LevelUpTextField, LevelUpFormControl, LevelUpTextArea, levelUpInputClasses } from '../Components/LevelUpInputs'
 
 export default function AddWod() {
 
@@ -85,7 +18,6 @@ export default function AddWod() {
     function handleSubmit(event) {//Get all athletes
 
         event.preventDefault()
-        console.log(name, type, description);
 
         axios.post('http://localhost:8000/createWod', {
             name,
@@ -106,13 +38,13 @@ export default function AddWod() {
     return (
         <div id="addWod" className="col">
 
-            <form className="row" onSubmit={handleSubmit} action="http://localhost:8000/createWod" method="POST" noValidate autoComplete="off">
+            <form className="row" onSubmit={handleSubmit} method="POST" noValidate autoComplete="off">
                 <div className="col">
                     <div className="row justify-content-center">
                         <div className="col-5">
                             <div className="row justify-content-end">
-                                <AddWodTextField
-                                    className={classes.margin}
+                                <LevelUpTextField
+                                    className={levelUpInputClasses.margin}
                                     label="WOD Name"
                                     variant="outlined"
                                     id="addWodNameInput"
@@ -122,7 +54,7 @@ export default function AddWod() {
                                 />
                             </div>
                             <div className="row justify-content-end mt-4">
-                                <AddWodFormControl variant="outlined" className={classes.formControl}>
+                                <LevelUpFormControl variant="outlined" className={levelUpInputClasses.formControl}>
                                     <InputLabel id="demo-simple-select-outlined-label">Type</InputLabel>
                                     <Select
                                         labelId="demo-simple-select-outlined-label"
@@ -137,13 +69,13 @@ export default function AddWod() {
                                         <MenuItem value={'amrap'}>AMRAP</MenuItem>
                                         <MenuItem value={'ft'}>For Time</MenuItem>
                                     </Select>
-                                </AddWodFormControl>
+                                </LevelUpFormControl>
                             </div>
                         </div>
                         <div className="col-5">
                             <div className="row">
-                                <AddWodTextArea
-                                    className={classes.margin + ' ml-4'}
+                                <LevelUpTextArea
+                                    className={levelUpInputClasses.margin + ' ml-4'}
                                     label="Descripton"
                                     variant="outlined"
                                     id="addWodDescriptionInput"

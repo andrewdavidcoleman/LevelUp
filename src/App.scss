@@ -313,31 +313,33 @@ header {
 }
 
 #performanceDetails {
+
+    .no-data {
+        p {
+            position: absolute;
+            opacity: 1;
+            transition: all .15s ease;
+        }
+
+        .icons {
+            position: absolute;
+
+            svg {
+                height: 3em;
+                width: 3em;
+                opacity: 0;
+                transition: all .15s ease;
+            }
+        }
+    }
+
     .graph-wrapper {
         height: 400px;
         border-radius: 0.25rem;
 
-        &.no-data {
-            p {
-                position: absolute;
-                opacity: 1;
-                transition: all .15s ease;
-            }
-
-            .icons {
-                position: absolute;
-
-                svg {
-                    height: 3em;
-                    width: 3em;
-                    opacity: 0;
-                    transition: all .15s ease;
-                }
-            }
-        }
-
         &:hover {
             border-color: $lightThemeColor2;
+
             p {
                 opacity: 0;
             }
