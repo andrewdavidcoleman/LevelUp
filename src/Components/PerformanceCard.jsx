@@ -8,11 +8,29 @@ const PerformanceCard = (props) => {
     const { state, dispatch } = useContext(AppContext);
 
     const performanceData = [];
-
+    let x;
+    let y;
     for (var i = 0; i < props.performances.length; i++) {
+        
+        switch (props.wod.type) {
+            case 'lift':
+                x = moment(props.performances[i].date).format('MM/DD/YYYY')
+                y = parseInt(props.performances[i].result.split(':')[0])
+                break;
+            case 'amrap':
+                x = moment(props.performances[i].date).format('MM/DD/YYYY')
+                y = props.performances[i].result.replace('+', '.')
+                break;
+            case 'ft':
+                x = moment(props.performances[i].date).format('MM/DD/YYYY')
+                y = props.performances[i].result.replace(':', '.')
+                break;
+            default:
+        }
+
         performanceData.push({
-            x: moment(props.performances[i].date).format('MM/DD/YYYY'),
-            y: parseInt(props.performances[i].result.split(':')[0])
+            x,
+            y
         })
     }
 
@@ -43,26 +61,31 @@ const PerformanceCard = (props) => {
             {props.performances.length ?
                 <ResponsiveLine
                     data={data}
-                    margin={{ top: 10, right: 30, bottom: 30, left: 50 }}
+                    //enableXGrid={true}
+                    //enableYGrid={true}
+                    margin={{ top: 10, right: 10, bottom: 10, left: 10 }}
+                    pointColor="inherit"
                     xScale={{ type: 'point' }}
                     yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: true, reverse: false }}
-                    axisBottom={{
-                        orient: 'bottom',
-                        tickSize: 5,
-                        tickPadding: 5,
-                        tickRotation: 0,
-                        legendOffset: 36,
-                        legendPosition: 'middle'
-                    }}
-                    axisLeft={{
-                        orient: 'left',
-                        tickSize: 5,
-                        tickPadding: 5,
-                        tickRotation: 0,
-                        legend,
-                        legendOffset: -40,
-                        legendPosition: 'middle'
-                    }}
+                    //axisBottom={{
+                    //    enable: false, //TODO: set to true if desktop
+                    //    orient: 'bottom',
+                    //    tickSize: 5,
+                    //    tickPadding: 5,
+                    //    tickRotation: 0,
+                    //    legendOffset: 36,
+                    //    legendPosition: 'middle'
+                    //}}
+                    //axisLeft={{
+                    //    enable: false, //TODO: set to true if desktop
+                    //    orient: 'left',
+                    //    tickSize: 5,
+                    //    tickPadding: 5,
+                    //    tickRotation: 0,
+                    //    legend,
+                    //    legendOffset: -40,
+                    //    legendPosition: 'middle'
+                    //}}
                     colors={{ scheme: 'nivo' }}
                     pointSize={10}
                     pointColor={{ theme: 'background' }}
