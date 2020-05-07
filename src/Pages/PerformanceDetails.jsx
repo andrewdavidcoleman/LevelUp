@@ -39,26 +39,25 @@ export default function PerformanceDetails(props) {
     }
 
     return (
-        <div id="performanceDetails" className="col">
+        <div id="performanceDetails" className={'col '}>
             <div className="row">
                 <div className="col">
 
+                    <div className="row justify-content-center">
                         {props.performances.length ? 'ICON' : ''}
-                        <div className="row align-self-start mt-2">
-                            <h1>{props.wod.name}</h1>
-                        </div>
+                        <h1>{props.wod.name}</h1>
                         {props.performances.length ? 'ICON' : ''}
+                    </div>
 
+                    <div className={'graph-wrapper full-border ' + (!props.performances.length ? 'no-data row justify-content-center align-items-center' : '')}>
                         {props.performances.length ? 
-                        (
-                            isAddMode ?
+                        (isAddMode ?
                             <AddPerformance
                                 athlete={props.athlete}
                                 wod={props.wod}
                             />
                             :
                             
-                            <div className="graph-wrapper full-border">
 
                                 <ResponsiveLine
                                     data={data}
@@ -91,7 +90,6 @@ export default function PerformanceDetails(props) {
                                     pointLabelYOffset={-12}
                                     useMesh={true}
                                 />
-                            </div>
                         )
                         :
                         (isAddMode ? 
@@ -111,29 +109,25 @@ export default function PerformanceDetails(props) {
                             </>
                         )
                         }
+
+                    </div>
                 </div>
-                <div className="col">
-                    <div className="row mt-2">
+                <div className="col pl-4">
+                    <div className="row justify-content-center">
                         <h1>{props.athlete.name}</h1>
                     </div>
                     <div className="row">
-                        {props.performances.length > 0 &&
-                            <h4>Last performed: {moment(new Date(Math.max(...props.performances.map(p => new Date(p.date))))).format('MM/DD/YYYY')}</h4>
-                        }
+                        <h4>Last performed: {props.performances.length ? moment(new Date(Math.max(...props.performances.map(p => new Date(p.date))))).format('MM/DD/YYYY') : 'N/A'}</h4>
                     </div>
                     <div className="row">
-                        {props.performances.length > 0 && 
-                            <h4>Result: {props.performances.length && props.performances[props.performances.length - 1].result}</h4>
-                        }
+                        <h4>Result: {props.performances.length ? props.performances[props.performances.length - 1].result : 'N/A'}</h4>
                     </div>
                     <div className="row">
-                        {props.performances.length > 0 &&
-                            <h4>PR: {Math.max(...props.performances.map(p => p.result))}</h4>
-                        }
+                        <h4>PR: {props.performances.length ? Math.max(...props.performances.map(p => p.result)) : 'N/A'}</h4>
                     </div>
                     <div className="row">
                         <br />
-                        <h4>{props.wod.description}</h4>
+                        <p>{props.wod.description}</p>
                     </div>
                 </div>
             </div>

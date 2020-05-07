@@ -14,7 +14,6 @@ const levelUpTheme = createMuiTheme({
 
 const LevelUpTextField = withStyles({
     root: {
-        width: '75%',
         '& label.Mui-focused': {
             color: '#6EABB0',
         },
@@ -32,7 +31,6 @@ const LevelUpTextField = withStyles({
 
 const LevelUpFormControl = withStyles({
     root: {
-        width: '75%',
         '& label.Mui-focused': {
             color: '#6EABB0',
         },
@@ -50,10 +48,21 @@ const LevelUpFormControl = withStyles({
 
 const LevelUpTextArea = withStyles({
     root: {
-        width: '100%',
         height: '300',
-        '& .MuiPickersToolbarText-toolbarTxt': {
-            color: 'white',
+        '& label.Mui-focused': {
+            color: '#6EABB0',
+        },
+        '& .MuiOutlinedInput-root': {
+            '&.Mui-focused fieldset': {
+                borderColor: '#6EABB0',
+                borderWidth: '1px'
+            },
+            '&:hover fieldset': {
+                borderColor: '#6EABB0',
+            },
+        },
+        '& .MuiOutlinedInput-input': {
+            minHeight: '300px'
         },
     },
 })(TextField);

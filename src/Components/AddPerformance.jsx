@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Button from '@material-ui/core/Button';
 import axios from 'axios'
 import { LevelUpTextField, LevelUpFormControl, LevelUpTextArea, LevelUpDatePicker, levelUpInputClasses, levelUpTheme } from './LevelUpInputs';
@@ -10,8 +10,10 @@ const moment = require('moment')
 
 export default function AddPerformance(props) {
 
-    const [result, setResult] = React.useState('')
-    const [date, setDate] = React.useState(Date.now())
+    const [minutes, setMinutes] = useState('')
+    const [seconds, setSeconds] = useState('')
+    const [result, setResult] = useState('')
+    const [date, setDate] = useState(Date.now())
 
     function handleSubmit(event) {
 
@@ -34,18 +36,28 @@ export default function AddPerformance(props) {
             })
     }
 
+    function handleMinutesChange(event) {
+        setMinutes(event.target.value)
+        setResult(event.target.value + ':' + seconds)
+    }
+
+    function handleSecondsChange(event) {
+        setSeconds(event.target.value)
+        setResult(minutes + ':' + event.target.value)
+    }
+
     return (
-        <div id="addPerformance" className={'row'  + (!props.performances.length ? 'no-data' : '')}>
+        <div id="addPerformance" className="row">
 
             <form className="row" onSubmit={handleSubmit} method="POST" noValidate autoComplete="off">
                 <div className="col">
-                    <div className="row justify-content-end">
+                    <div className="row align-items-center">
                         {
 
                             props.wod.type === 'lift' ?
 
                                 <LevelUpTextField
-                                    className={levelUpInputClasses.margin}
+                                    className={levelUpInputClasses.margin + ' lbs'}
                                     label="Lbs"
                                     variant="outlined"
                                     id="addPerformanceLbsInput"
@@ -58,22 +70,23 @@ export default function AddPerformance(props) {
 
                                     <>
                                     <LevelUpTextField
-                                        className={levelUpInputClasses.margin}
+                                        className={levelUpInputClasses.margin + ' minutes'}
                                         label="Minutes"
                                         variant="outlined"
                                         id="addPerformanceMinutesInput"
                                         key="addPerformanceMinutesInput"
-                                        onChange={e => setResult(e.target.value)}
-                                        value={result}
+                                        onChange={handleMinutesChange}
+                                        value={minutes}
                                     />
+                                    <span className="font-weight-bold m-2">:</span>
                                     <LevelUpTextField
-                                        className={levelUpInputClasses.margin}
+                                        className={levelUpInputClasses.margin + ' seconds'}
                                         label="Seconds"
                                         variant="outlined"
                                         id="addPerformanceSecondsInput"
                                         key="addPerformanceSecondsInput"
-                                        onChange={e => setResult(e.target.value)}
-                                        value={result}
+                                        onChange={handleSecondsChange}
+                                        value={seconds}
                                     />
                                     </>
 
@@ -112,7 +125,7 @@ export default function AddPerformance(props) {
                                     label="Date Performed"
                                     format="MM/DD/YYYY"
                                     value={date}
-                                    onChange={d => setDate(d)}
+                                    onChange={d => setDate(moment(d).format('YYYY-MM-DD'))}
                                 />
                             </ThemeProvider>
                         </MuiPickersUtilsProvider>

@@ -44,7 +44,7 @@ export default function AddWod() {
                         <div className="col-5">
                             <div className="row justify-content-end">
                                 <LevelUpTextField
-                                    className={levelUpInputClasses.margin}
+                                    className={levelUpInputClasses.margin + ' w-100'}
                                     label="WOD Name"
                                     variant="outlined"
                                     id="addWodNameInput"
@@ -54,7 +54,7 @@ export default function AddWod() {
                                 />
                             </div>
                             <div className="row justify-content-end mt-4">
-                                <LevelUpFormControl variant="outlined" className={levelUpInputClasses.formControl}>
+                                <LevelUpFormControl variant="outlined" className={levelUpInputClasses.formControl + ' w-100'}>
                                     <InputLabel id="demo-simple-select-outlined-label">Type</InputLabel>
                                     <Select
                                         labelId="demo-simple-select-outlined-label"
@@ -75,7 +75,7 @@ export default function AddWod() {
                         <div className="col-5">
                             <div className="row">
                                 <LevelUpTextArea
-                                    className={levelUpInputClasses.margin + ' ml-4'}
+                                    className={levelUpInputClasses.margin + ' ml-4 w-100'}
                                     label="Descripton"
                                     variant="outlined"
                                     id="addWodDescriptionInput"

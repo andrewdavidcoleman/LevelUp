@@ -49,10 +49,7 @@ const Home = (props) => {
     }, []);
 
     useEffect(() => {
-        console.log(props.search);
-        console.log(wods);
         setWods(wods.filter(w => w.name.toLowerCase().includes(props.search.toLowerCase())))
-        console.log(wods.filter(w => w.name.toLowerCase().includes(props.search.toLowerCase())));
     }, [props.search]);
 
     return (
