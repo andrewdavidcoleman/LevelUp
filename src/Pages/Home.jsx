@@ -48,9 +48,9 @@ const Home = (props) => {
 
     }, []);
 
-    useEffect(() => {
-        setWods(wods.filter(w => w.name.toLowerCase().includes(props.search.toLowerCase())))
-    }, [props.search]);
+    //useEffect(() => {
+    //    setWods(wods.filter(w => w.name.toLowerCase().includes(props.search.toLowerCase())))
+    //}, [props.search]);
 
     return (
             <div id="home" className="col">
@@ -70,7 +70,7 @@ const Home = (props) => {
                     <div className="col-2"></div>
                 </div>
 
-                {wods.map(wod =>
+                {wods.filter(w => w.name.toLowerCase().includes(props.search.toLowerCase())).map(wod =>
 
                     <div key={wod.wodId} className="row">
                         <div className="col-2 right-border d-flex flex-column justify-content-center">

@@ -3,19 +3,9 @@ import './App.scss'
 import { Home } from './Pages/Home'
 import AddWod from './Pages/AddWod'
 import AddAthlete from './Pages/AddAthlete'
-import PerformanceDetails from './Pages/PerformanceDetails'
+import { PerformanceDetails } from './Pages/PerformanceDetails'
 import TextField from '@material-ui/core/TextField'
 import { makeStyles, withStyles } from '@material-ui/core/styles'
-
-// Reducer to manage global app state
-function reducer(state, action) {
-    return {
-        page: action.page,
-        athlete: action.athlete,
-        wod: action.wod,
-        performances: action.performances
-    };
-}
 
 // Style overrides for material UI text field
 const SearchInput = withStyles({
@@ -45,6 +35,16 @@ const classes = makeStyles((theme) => ({
         margin: theme.spacing(1),
     },
 }));
+
+// Reducer to manage global app state
+function reducer(state, action) {
+    return {
+        page: action.page,
+        athlete: action.athlete,
+        wod: action.wod,
+        performances: action.performances
+    }
+}
 
 const AppContext = React.createContext(null);
 
@@ -124,7 +124,7 @@ const App = () => {
         </div>
     </AppContext.Provider>
       
-  );
+  )
 }
 
 export { App, AppContext }

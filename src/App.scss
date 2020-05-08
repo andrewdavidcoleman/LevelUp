@@ -236,22 +236,33 @@ header {
 .performance-card {
     background-color: transparent;
 
+
+    .icons {
+        position: absolute;
+        z-index: 2;
+
+        svg {
+            height: 2.2rem;
+            width: 2.2rem;
+            opacity: 0;
+            transition: all .15s ease;
+
+            &:hover {
+                color: $lightThemeColor2;
+            }
+        }
+    }
+
     &.no-data {
+        svg {
+            height: 3rem;
+            width: 3rem;
+        }
+
         small {
             position: absolute;
             opacity: 1;
             transition: all .15s ease;
-        }
-
-        .icons {
-            position: absolute;
-
-            svg {
-                height: 2em;
-                width: 2em;
-                opacity: 0;
-                transition: all .15s ease;
-            }
         }
     }
 
@@ -263,10 +274,6 @@ header {
         .icons {
             svg {
                 opacity: 1;
-
-                &:hover {
-                    color: $lightThemeColor2;
-                }
             }
         }
     }
@@ -317,6 +324,33 @@ header {
         height: 400px;
         border-radius: 0.25rem;
 
+        svg.close {
+            opacity: 0;
+            height: 1.6rem;
+            width: 1.6rem;
+            z-index: 2;
+            right: 0;
+            transition: all .15s ease;
+
+            &:hover {
+                color: $lightThemeColor2;
+            }
+        }
+
+        .icons {
+            svg {
+                opacity: 0;
+                height: 1.6rem;
+                width: 1.6rem;
+                z-index: 2;
+                transition: all .15s ease;
+
+                &:hover {
+                    color: $lightThemeColor2;
+                }
+            }
+        }
+
         &.no-data {
             p {
                 position: absolute;
@@ -332,20 +366,28 @@ header {
                     width: 3em;
                     opacity: 0;
                     transition: all .15s ease;
+
+                    &:hover {
+                        color: $lightThemeColor2;
+                    }
                 }
             }
         }
 
         &:hover {
             border-color: $lightThemeColor2;
+
             p {
                 opacity: 0;
+            }
+
+            svg.close {
+                opacity: 1;
             }
 
             .icons {
                 svg {
                     opacity: 1;
-                    color: $lightThemeColor2;
                 }
             }
         }
