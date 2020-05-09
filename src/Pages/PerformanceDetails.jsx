@@ -6,7 +6,10 @@ const moment = require('moment')
 // Reducer to manage global app state
 function reducer(state, action) {
     return {
-        isAddMode: action.isAddMode
+        isAddMode: action.isAddMode,
+        pr: action.pr,
+        lastPerformed: action.lastPerformed,
+        performances: action.newPerformance ? [...state.performances, action.newPerformance] : state.performances
     }
 }
 
@@ -14,40 +17,31 @@ const PerformanceDetailsContext = React.createContext(null);
 
 const PerformanceDetails = (props) => {
 
-    const [isAddMode, setIsAddMode] = useState(false);
-    const [state, dispatch] = useReducer(reducer, { isAddMode: false })
-
     const prNum = Math.max(...props.performances.map(p => p.result.replace(/[+:]/g, '.')))
-    let prString = prNum.toString().replace('.', props.wod.type === 'ft' ? ':' : '+')
+    let pr = prNum.toString().replace('.', props.wod.type === 'ft' ? ':' : '+')
     if (prNum < 10) {
-        prString = '0' + prString
+        pr = '0' + pr
     }
 
-    const performanceData = []
-    let x;
-    let y;
-    for (var i = 0; i < props.performances.length; i++) {
+    const lastPerformed = moment(new Date(Math.max(...props.performances.map(p => new Date(p.date))))).format('MM/DD/YYYY')
 
-        switch (props.wod.type) {
-            case 'lift':
-                x = moment(props.performances[i].date).format('MM/DD/YYYY')
-                y = props.performances[i].result
-                break;
-            case 'amrap':
-                x = moment(props.performances[i].date).format('MM/DD/YYYY')
-                y = props.performances[i].result.replace('+', '.')
-                break;
-            case 'ft':
-                x = moment(props.performances[i].date).format('MM/DD/YYYY')
-                y = props.performances[i].result.replace(':', '.')
-                break;
-            default:
-        }
+    //const [isAddMode, setIsAddMode] = useState(false);
+    const [state, dispatch] = useReducer(reducer, {
+        isAddMode: false,
+        pr,
+        lastPerformed,
+        performances: props.performances || []
+    })
+
+    const performanceData = []
+
+    for (var i = 0; i < state.performances.length; i++) {
 
         performanceData.push({
-            x,
-            y
+            x: moment(state.performances[i].date).format('MM/DD/YYYY'),
+            y: parseInt(state.performances[i].result.replace(/[+:]/g, '.'))
         })
+
     }
 
     const data = [
@@ -78,17 +72,17 @@ const PerformanceDetails = (props) => {
                 <div className="row">
                     <div className="col">
 
-                        <div className={'graph-wrapper row full-border justify-content-center align-items-center ' + (!props.performances.length ? 'no-data' : '')}>
+                        <div className={'graph-wrapper row full-border justify-content-center align-items-center ' + (!state.performances.length ? 'no-data' : '')}>
                             {
-                                isAddMode
+                                state.isAddMode
                                 &&
-                                <svg className="bi bi-x position-absolute cursor-pointer align-self-start m-2 close" onClick={() => setIsAddMode(false)} viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <svg className="bi bi-x position-absolute cursor-pointer align-self-start m-2 close" onClick={() => dispatch({...state, isAddMode: false})} viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path fillRule="evenodd" d="M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z" clipRule="evenodd" />
                                     <path fillRule="evenodd" d="M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z" clipRule="evenodd" />
                                 </svg>
                             }
-                            {props.performances.length ? 
-                            (isAddMode ?
+                            {state.performances.length ? 
+                                (state.isAddMode ?
                                     <div className="col flex-fill">
                                         <AddPerformance
                                             athlete={props.athlete}
@@ -105,7 +99,7 @@ const PerformanceDetails = (props) => {
                                                     <path fillRule="evenodd" d="M5 11.5a.5.5 0 01.5-.5h9a.5.5 0 010 1h-9a.5.5 0 01-.5-.5zm0-4a.5.5 0 01.5-.5h9a.5.5 0 010 1h-9a.5.5 0 01-.5-.5zm0-4a.5.5 0 01.5-.5h9a.5.5 0 010 1h-9a.5.5 0 01-.5-.5zm-3 1a1 1 0 100-2 1 1 0 000 2zm0 4a1 1 0 100-2 1 1 0 000 2zm0 4a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
                                                 </svg>
                                                 */}
-                                            <svg className="bi bi-plus m-2 cursor-pointer" onClick={() => setIsAddMode(true)} width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <svg className="bi bi-plus m-2 cursor-pointer" onClick={() => dispatch({...state, isAddMode: true})} width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                 <path fillRule="evenodd" d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z" clipRule="evenodd" />
                                                 <path fillRule="evenodd" d="M7.5 8a.5.5 0 01.5-.5h4a.5.5 0 010 1H8.5V12a.5.5 0 01-1 0V8z" clipRule="evenodd" />
                                             </svg>
@@ -145,7 +139,7 @@ const PerformanceDetails = (props) => {
                                     </>
                             )
                             :
-                            (isAddMode ? 
+                                (state.isAddMode ? 
                                     <div className="col">
                                         <AddPerformance
                                             athlete={props.athlete}
@@ -156,7 +150,7 @@ const PerformanceDetails = (props) => {
                                 <>
                                     <p>No performance data</p>
                                     <div className="icons">
-                                        <svg className="bi bi-plus m-2 cursor-pointer" onClick={() => setIsAddMode(true)} width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <svg className="bi bi-plus m-2 cursor-pointer" onClick={() => dispatch({...state, isAddMode: true})} width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                             <path fillRule="evenodd" d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z" clipRule="evenodd" />
                                             <path fillRule="evenodd" d="M7.5 8a.5.5 0 01.5-.5h4a.5.5 0 010 1H8.5V12a.5.5 0 01-1 0V8z" clipRule="evenodd" />
                                         </svg>
@@ -172,13 +166,13 @@ const PerformanceDetails = (props) => {
                             <h1>{props.athlete.name}</h1>
                         </div>
                         <div className="row">
-                            <h4>Last performed: {props.performances.length ? moment(new Date(Math.max(...props.performances.map(p => new Date(p.date))))).format('MM/DD/YYYY') : 'N/A'}</h4>
+                            <h4>Last performed: {state.performances.length ? state.lastPerformed : 'N/A'}</h4>
                         </div>
                         <div className="row">
-                            <h4>Result: {props.performances.length ? props.performances[props.performances.length - 1].result : 'N/A'}</h4>
+                            <h4>Result: {state.performances.length ? state.performances[state.performances.length - 1].result : 'N/A'}</h4>
                         </div>
                         <div className="row">
-                            <h4>PR: {props.performances.length ? prString : 'N/A'}</h4>
+                            <h4>PR: {state.performances.length ? state.pr : 'N/A'}</h4>
                         </div>
                         <div className="row">
                             <h1>{props.wod.name}</h1>

@@ -10,13 +10,12 @@ const moment = require('moment')
 
 
 export default function AddPerformance(props) {
-
     const [minutes, setMinutes] = useState('')
     const [seconds, setSeconds] = useState('')
     const [rounds, setRounds] = useState('')
     const [reps, setReps] = useState('')
     const [result, setResult] = useState('')
-    const [date, setDate] = useState(Date.now())
+    const [date, setDate] = useState(moment(Date.now()).format('YYYY-MM-DD'))
     const { state, dispatch } = useContext(PerformanceDetailsContext);
 
     function handleSubmit(event) {
@@ -30,14 +29,13 @@ export default function AddPerformance(props) {
             date
         })
             .then(function (response) {
-                console.log(response)
+                dispatch({...state, newPerformance: response.data.performance, isAddMode: false})
             })
             .catch(function (error) {
                 console.log(error)
             })
             .finally(function () {
-                console.log('finally!!');
-                dispatch({isAddMode: false})
+
             })
     }
 

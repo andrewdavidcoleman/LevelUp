@@ -8,30 +8,14 @@ const PerformanceCard = (props) => {
     const { state, dispatch } = useContext(AppContext);
 
     const performanceData = [];
-    let x;
-    let y;
+
     for (var i = 0; i < props.performances.length; i++) {
-        
-        switch (props.wod.type) {
-            case 'lift':
-                x = moment(props.performances[i].date).format('MM/DD/YYYY')
-                y = props.performances[i].result
-                break;
-            case 'amrap':
-                x = moment(props.performances[i].date).format('MM/DD/YYYY')
-                y = props.performances[i].result.replace('+', '.')
-                break;
-            case 'ft':
-                x = moment(props.performances[i].date).format('MM/DD/YYYY')
-                y = props.performances[i].result.replace(':', '.')
-                break;
-            default:
-        }
 
         performanceData.push({
-            x,
-            y
+            x: moment(props.performances[i].date).format('MM/DD/YYYY'),
+            y: parseInt(props.performances[i].result.replace(/[+:]/g, '.'))
         })
+
     }
 
     const data = [
