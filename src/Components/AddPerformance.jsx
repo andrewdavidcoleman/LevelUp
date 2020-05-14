@@ -22,7 +22,7 @@ export default function AddPerformance(props) {
 
         event.preventDefault()
 
-        axios.post('http://localhost:8000/createPerformance', {
+        axios.post(`${process.env.DB}/createPerformance`, {
             wodId: props.wod.wodId,
             athleteId: props.athlete.athleteId,
             result,

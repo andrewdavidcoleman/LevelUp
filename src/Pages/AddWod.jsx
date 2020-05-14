@@ -18,7 +18,7 @@ export default function AddWod() {
 
         event.preventDefault()
 
-        axios.post('http://localhost:8000/createWod', {
+        axios.post(`${process.env.REACT_APP_DB}/createWod`, {
             name,
             type,
             description
