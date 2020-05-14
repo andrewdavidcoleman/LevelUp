@@ -1,4 +1,4 @@
-import React, { useReducer, useState, useContext } from 'react'
+import React, { useReducer, useState } from 'react'
 import './App.scss'
 import { Home } from './Pages/Home'
 import AddWod from './Pages/AddWod'
@@ -52,11 +52,6 @@ const App = () => {
 
     const [search, setSearch] = useState('')
     const [state, dispatch] = useReducer(reducer, { page: 'Home', athlete: {}, wod: {}, performances: [] })
-
-    function handleSearchChange(event) {
-        console.log(state.performances);
-        console.log(state.performances.filter(p => p.name.includes(event.target.value)));
-    }
 
     return (
     <AppContext.Provider value={{ state, dispatch }}>

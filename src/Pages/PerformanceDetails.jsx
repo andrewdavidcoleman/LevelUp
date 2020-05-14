@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from 'react'
+import React, { useReducer } from 'react'
 import { ResponsiveLine } from '@nivo/line'
 import AddPerformance from '../Components/AddPerformance'
 const moment = require('moment')
