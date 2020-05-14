@@ -1,8 +1,9 @@
-import React from 'react'
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import Button from '@material-ui/core/Button';
+import React, { useContext } from 'react'
+import { AppContext } from '../App'
+import InputLabel from '@material-ui/core/InputLabel'
+import MenuItem from '@material-ui/core/MenuItem'
+import Select from '@material-ui/core/Select'
+import Button from '@material-ui/core/Button'
 import axios from 'axios'
 import { LevelUpTextField, LevelUpFormControl, LevelUpTextArea, levelUpInputClasses } from '../Components/LevelUpInputs'
 
@@ -11,6 +12,7 @@ export default function AddWod() {
     const [name, setName] = React.useState('')
     const [type, setType] = React.useState('')
     const [description, setDescription] = React.useState('')
+    const { state, dispatch } = useContext(AppContext);
 
     function handleSubmit(event) {//Get all athletes
 
@@ -22,7 +24,7 @@ export default function AddWod() {
             description
         })
             .then(function (response) {
-                console.log(response)
+                dispatch({ ...state, page: 'Home' })
             })
             .catch(function (error) {
                 console.log(error)

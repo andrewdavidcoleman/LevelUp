@@ -5,7 +5,7 @@ const moment = require('moment')
 
 const PerformanceCard = (props) => {
 
-    const { state, dispatch } = useContext(AppContext);
+    const { dispatch } = useContext(AppContext);
 
     const performanceData = [];
 
@@ -47,7 +47,7 @@ const PerformanceCard = (props) => {
                     <path d="M15.502 1.94a.5.5 0 010 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 01.707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 00-.121.196l-.805 2.414a.25.25 0 00.316.316l2.414-.805a.5.5 0 00.196-.12l6.813-6.814z" />
                     <path fillRule="evenodd" d="M1 13.5A1.5 1.5 0 002.5 15h11a1.5 1.5 0 001.5-1.5v-6a.5.5 0 00-1 0v6a.5.5 0 01-.5.5h-11a.5.5 0 01-.5-.5v-11a.5.5 0 01.5-.5H9a.5.5 0 000-1H2.5A1.5 1.5 0 001 2.5v11z" clipRule="evenodd" />
                 </svg>*/
-                    //TODO: Be able to add performance directly from guard
+                    //TODO: Be able to add performance directly from grid
                 }
                 <svg className="bi bi-card-list cursor-pointer p-2" onClick={() => dispatch({ page: 'PerformanceDetails', athlete: props.athlete, wod: props.wod, performances: props.performances })} viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fillRule="evenodd" d="M14.5 3h-13a.5.5 0 00-.5.5v9a.5.5 0 00.5.5h13a.5.5 0 00.5-.5v-9a.5.5 0 00-.5-.5zm-13-1A1.5 1.5 0 000 3.5v9A1.5 1.5 0 001.5 14h13a1.5 1.5 0 001.5-1.5v-9A1.5 1.5 0 0014.5 2h-13z" clipRule="evenodd" />

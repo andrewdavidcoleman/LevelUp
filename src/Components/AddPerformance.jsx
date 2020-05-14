@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react'
-import Button from '@material-ui/core/Button';
+import Button from '@material-ui/core/Button'
 import axios from 'axios'
-import { LevelUpTextField, LevelUpDatePicker, levelUpInputClasses, levelUpTheme } from './LevelUpInputs';
-import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import { LevelUpTextField, LevelUpDatePicker, levelUpInputClasses, levelUpTheme } from './LevelUpInputs'
+import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import MomentUtils from '@date-io/moment'
-import { ThemeProvider } from '@material-ui/core';
+import { ThemeProvider } from '@material-ui/core'
 import { PerformanceDetailsContext } from '../Pages/PerformanceDetails'
 const moment = require('moment')
 
