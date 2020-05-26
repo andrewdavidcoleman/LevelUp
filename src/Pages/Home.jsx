@@ -11,7 +11,7 @@ const Home = (props) => {
     useEffect(() => {
 
         //Get all athletes
-        axios.get(`${process.env.REACT_APP_DB}/getAllAthletes`)
+        axios.get(`${process.env.REACT_APP_DB}getAllAthletes`)
             .then(function (response) {
                 setAthletes(response.data)
             })
@@ -23,7 +23,7 @@ const Home = (props) => {
             })
 
         // Get all wods
-        axios.get(`${process.env.REACT_APP_DB}/getAllWods`)
+        axios.get(`${process.env.REACT_APP_DB}getAllWods`)
             .then(function (response) {
                 setWods(response.data)
             })
@@ -35,7 +35,7 @@ const Home = (props) => {
             })
 
         // Get all performances
-        axios.get(`${process.env.REACT_APP_DB}/getAllPerformances`)
+        axios.get(`${process.env.REACT_APP_DB}getAllPerformances`)
             .then(function (response) {
                 setPerformances(response.data)
             })
