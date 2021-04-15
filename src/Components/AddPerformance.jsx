@@ -22,7 +22,7 @@ export default function AddPerformance(props) {
 
         event.preventDefault()
 
-        axios.post(`${process.env.DB}/createPerformance`, {
+        axios.post(`${process.env.REACT_APP_DB}createPerformance`, {
             wodId: props.wod.wodId,
             athleteId: props.athlete.athleteId,
             result,
